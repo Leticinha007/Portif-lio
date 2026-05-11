@@ -1,176 +1,101 @@
-// ===== AGUARDA O CARREGAMENTO DA PÁGINA =====
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // ===== 1. MENU RESPONSIVO (HAMBURGUER) =====
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const menuLinks = document.querySelector('.menu-links');
-    
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', function() {
-            menuLinks.classList.toggle('active');
-            // Muda o ícone do botão
-            mobileMenuBtn.textContent = menuLinks.classList.contains('active') ? '✕' : '☰';
-        });
-    }
-    
-    // Fecha o menu ao clicar em qualquer link
-    document.querySelectorAll('.menu-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            menuLinks.classList.remove('active');
-            mobileMenuBtn.textContent = '☰';
-        });
-    });
+// ===== NAVEGAÇÃO COM BLUR AO ROLAR =====
+const nav = document.querySelector('nav#navigation');
 
-    // ===== 2. TEMA CLARO/ESCURO =====
-    const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-    
-    // Verifica se já existe uma preferência salva
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        body.classList.add('dark-theme');
-        themeToggle.textContent = '☀️ Claro';
-    }
-    
-    // Alterna o tema ao clicar no botão
-    themeToggle.addEventListener('click', function() {
-        body.classList.toggle('dark-theme');
-        const isDark = body.classList.contains('dark-theme');
-        themeToggle.textContent = isDark ? '☀️ Claro' : '🌙 Escuro';
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    });
-
-    // ===== 3. VALIDAÇÃO DO FORMULÁRIO DE CONTATO =====
-    const formContato = document.getElementById('form-contato');
-    const mensagemRetorno = document.getElementById('mensagem-retorno');
-    
-    if (formContato) {
-        formContato.addEventListener('submit', function(event) {
-            // Impede o envio tradicional do formulário
-            event.preventDefault();
-            
-            // Pega os valores dos campos
-            const nome = document.getElementById('nome').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const mensagem = document.getElementById('mensagem').value.trim();
-            
-            let isValid = true;
-            limparErros();
-            
-            // Validação do NOME
-            if (nome === '') {
-                mostrarErro('nome', 'O nome é obrigatório');
-                isValid = false;
-            } else if (nome.length < 3) {
-                mostrarErro('nome', 'O nome deve ter pelo menos 3 caracteres');
-                isValid = false;
-            }
-            
-            // Validação do EMAIL
-            if (email === '') {
-                mostrarErro('email', 'O e-mail é obrigatório');
-                isValid = false;
-            } else if (!validarEmail(email)) {
-                mostrarErro('email', 'Digite um e-mail válido (ex: usuario@dominio.com)');
-                isValid = false;
-            }
-            
-            // Validação da MENSAGEM
-            if (mensagem === '') {
-                mostrarErro('mensagem', 'A mensagem é obrigatória');
-                isValid = false;
-            } else if (mensagem.length < 10) {
-                mostrarErro('mensagem', 'A mensagem deve ter pelo menos 10 caracteres');
-                isValid = false;
-            }
-            
-            // Se tudo estiver válido, simula o envio
-            if (isValid) {
-                simularEnvio();
-            }
-        });
-    }
-    
-    // Função para validar formato do email
-    function validarEmail(email) {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(email);
-    }
-    
-    // Função para mostrar mensagem de erro
-    function mostrarErro(campoId, mensagem) {
-        const campo = document.getElementById(campoId);
-        const erroSpan = document.getElementById(`erro-${campoId}`);
-        campo.classList.add('invalido');
-        erroSpan.textContent = mensagem;
-    }
-    
-    // Função para limpar erros anteriores
-    function limparErros() {
-        document.querySelectorAll('.form-group input, .form-group textarea').forEach(campo => {
-            campo.classList.remove('invalido');
-        });
-        document.querySelectorAll('.erro').forEach(erro => {
-            erro.textContent = '';
-        });
-    }
-    
-    // Função que simula o envio do formulário
-    function simularEnvio() {
-        // Limpa os campos
-        document.getElementById('nome').value = '';
-        document.getElementById('email').value = '';
-        document.getElementById('mensagem').value = '';
-        
-        // Mostra mensagem de sucesso
-        mensagemRetorno.textContent = '✅ Mensagem enviada com sucesso!';
-        mensagemRetorno.className = 'mensagem-retorno sucesso';
-        
-        // Remove a mensagem após 5 segundos
-        setTimeout(() => {
-            mensagemRetorno.textContent = '';
-            mensagemRetorno.className = 'mensagem-retorno';
-        }, 5000);
-    }
-
-    // ===== 4. SCROLL SUAVE PARA AS ÂNCORAS =====
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const href = this.getAttribute('href');
-            if (href === '#') return;
-            
-            const elemento = document.querySelector(href);
-            if (elemento) {
-                const menuHeight = document.querySelector('.menu').offsetHeight;
-                window.scrollTo({
-                    top: elemento.offsetTop - menuHeight,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // ===== 5. DESTACAR LINK ATIVO NO MENU =====
-    function destacarLinkAtivo() {
-        const scrollPos = window.scrollY;
-        const menuHeight = document.querySelector('.menu').offsetHeight;
-        
-        document.querySelectorAll('.section').forEach(secao => {
-            const top = secao.offsetTop - menuHeight - 10;
-            const bottom = top + secao.offsetHeight;
-            const id = secao.getAttribute('id');
-            
-            if (scrollPos >= top && scrollPos < bottom) {
-                document.querySelectorAll('.menu-links a').forEach(link => {
-                    link.classList.remove('ativo');
-                });
-                const linkAtivo = document.querySelector(`.menu-links a[href="#${id}"]`);
-                if (linkAtivo) linkAtivo.classList.add('ativo');
-            }
-        });
-    }
-    
-    window.addEventListener('scroll', destacarLinkAtivo);
-    destacarLinkAtivo();
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scroll', window.scrollY > 0);
 });
+
+// ===== BOTÃO VOLTAR AO TOPO =====
+const backToTopButton = document.getElementById('backToTopButton');
+
+window.addEventListener('scroll', () => {
+  backToTopButton.classList.toggle('show', window.scrollY > 500);
+});
+
+// ===== MENU MOBILE =====
+const openMenuBtn = document.querySelector('.open-menu');
+const closeMenuBtn = document.querySelector('.close-menu');
+
+openMenuBtn.addEventListener('click', () => {
+  document.body.classList.add('menu-expanded');
+});
+
+closeMenuBtn.addEventListener('click', () => {
+  document.body.classList.remove('menu-expanded');
+});
+
+document.querySelectorAll('.menu a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.body.classList.remove('menu-expanded');
+  });
+});
+
+// ===== TOGGLE TEMA CLARO/ESCURO =====
+const checkbox = document.getElementById('sw-checkbox');
+
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') {
+  document.body.classList.add('light-mode');
+  checkbox.checked = true;
+}
+
+checkbox.addEventListener('change', function () {
+  if (this.checked) {
+    document.body.classList.add('light-mode');
+    localStorage.setItem('theme', 'light');
+  } else {
+    document.body.classList.remove('light-mode');
+    localStorage.setItem('theme', 'dark');
+  }
+});
+
+// ===== LINK ATIVO NO MENU =====
+function setActiveNavLink() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav .menu ul:first-child a');
+  const scrollY = window.scrollY + 120;
+
+  sections.forEach(section => {
+    const top = section.offsetTop;
+    const bottom = top + section.offsetHeight;
+    const id = section.getAttribute('id');
+    const link = document.querySelector(`nav .menu ul:first-child a[href="#${id}"]`);
+
+    if (link) {
+      if (scrollY >= top && scrollY < bottom) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      }
+    }
+  });
+}
+
+window.addEventListener('scroll', setActiveNavLink);
+
+// ===== SCROLL REVEAL =====
+const sr = ScrollReveal({
+  origin: 'top',
+  distance: '30px',
+  duration: 700,
+  reset: false,
+});
+
+sr.reveal('#home .col-a',       { delay: 200 });
+sr.reveal('#home .col-b',       { delay: 500, origin: 'right' });
+
+sr.reveal('#about header',      { delay: 200, origin: 'left' });
+sr.reveal('#about .content',    { delay: 300, origin: 'left' });
+sr.reveal('#about .col-b',      { delay: 400, origin: 'right' });
+
+sr.reveal('#projects header',   { delay: 200 });
+sr.reveal('#projects .card',    { delay: 200, interval: 150 });
+sr.reveal('#projects .button',  { delay: 200 });
+
+sr.reveal('#knowledge header',  { delay: 200 });
+sr.reveal('#knowledge .card',   { delay: 200, interval: 150 });
+
+sr.reveal('#contact .col-a',    { delay: 200, origin: 'left' });
+sr.reveal('#contact .col-b',    { delay: 400, origin: 'right' });
+
+sr.reveal('footer .col-a',      { delay: 200, origin: 'left' });
+sr.reveal('footer .col-b',      { delay: 400, origin: 'right' });
