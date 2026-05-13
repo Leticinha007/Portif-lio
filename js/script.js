@@ -109,148 +109,77 @@ sr.reveal('footer .col-b',      { delay: 400, origin: 'right' });
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-
   const W = canvas.width;
   const H = canvas.height;
-
   const cx = W / 2;
   const cy = H / 2;
-
   const R = W * 0.36;
-
-  const POINTS = 1800;
+  const POINTS = 1000;
+  const BUCKETS = 8;
+  const TARGET_MS = 1000 / 30; // 30fps
 
   let rotation = 0;
+  let lastTime = 0;
 
-  // Cria pontos aleatórios na esfera
   const particles = [];
-
   for (let i = 0; i < POINTS; i++) {
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos((Math.random() * 2) - 1);
-
     particles.push({
-      theta,
-      phi
+      theta: Math.random() * Math.PI * 2,
+      phi: Math.acos(Math.random() * 2 - 1),
     });
   }
 
-  function project(theta, phi) {
-    // Coordenadas 3D
-    const x =
-      R * Math.sin(phi) * Math.cos(theta + rotation);
+  // Glow externo pré-criado uma vez
+  const outerGlow = ctx.createRadialGradient(cx, cy, R * 0.7, cx, cy, R * 1.2);
+  outerGlow.addColorStop(0, 'rgba(57,255,20,0)');
+  outerGlow.addColorStop(1, 'rgba(57,255,20,0.09)');
 
-    const y =
-      R * Math.cos(phi);
+  function frame(now) {
+    requestAnimationFrame(frame);
+    if (now - lastTime < TARGET_MS) return;
+    lastTime = now;
 
-    const z =
-      R * Math.sin(phi) * Math.sin(theta + rotation);
-
-    // Perspectiva
-    const scale = 0.7 + ((z + R) / (2 * R)) * 0.6;
-
-    return {
-      x: cx + x,
-      y: cy + y,
-      z,
-      scale
-    };
-  }
-
-  function drawGlow(x, y, size, alpha) {
-    const glow = ctx.createRadialGradient(
-      x,
-      y,
-      0,
-      x,
-      y,
-      size * 4
-    );
-
-    glow.addColorStop(
-      0,
-      `rgba(57,255,20,${alpha})`
-    );
-
-    glow.addColorStop(
-      1,
-      'rgba(57,255,20,0)'
-    );
-
-    ctx.fillStyle = glow;
-
-    ctx.beginPath();
-    ctx.arc(x, y, size * 4, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  function frame() {
     ctx.clearRect(0, 0, W, H);
 
-    // Fundo transparente
-    ctx.save();
+    // Projeta todas as partículas e agrupa por bucket de alpha
+    const buckets = Array.from({ length: BUCKETS }, () => []);
 
-    // Desenha partículas
-    particles.forEach((p) => {
-      const pos = project(p.theta, p.phi);
+    for (let i = 0; i < POINTS; i++) {
+      const p = particles[i];
+      const sinPhi = Math.sin(p.phi);
+      const x = R * sinPhi * Math.cos(p.theta + rotation);
+      const y = R * Math.cos(p.phi);
+      const z = R * sinPhi * Math.sin(p.theta + rotation);
+      const t = (z + R) / (2 * R);           // 0 (fundo) → 1 (frente)
+      const alpha = 0.12 + t * 0.88;
+      const size  = 0.6 + t * 1.6;
+      const bi = Math.min(BUCKETS - 1, (t * BUCKETS) | 0);
+      buckets[bi].push(cx + x, cy + y, size);
+    }
 
-      // brilho baseado na profundidade
-      const alpha = 0.15 + ((pos.z + R) / (2 * R)) * 0.85;
-
-      const size = 0.7 + pos.scale * 1.2;
-
-      // glow
-      drawGlow(pos.x, pos.y, size, alpha * 0.25);
-
-      // ponto principal
+    // Um beginPath + fill por bucket (8 draws em vez de 1000)
+    ctx.fillStyle = 'rgb(57,255,20)';
+    for (let b = 0; b < BUCKETS; b++) {
+      const alpha = (b + 0.5) / BUCKETS;
+      ctx.globalAlpha = alpha;
       ctx.beginPath();
-
-      ctx.fillStyle =
-        `rgba(57,255,20,${alpha})`;
-
-      ctx.arc(
-        pos.x,
-        pos.y,
-        size,
-        0,
-        Math.PI * 2
-      );
-
+      const arr = buckets[b];
+      for (let j = 0; j < arr.length; j += 3) {
+        ctx.moveTo(arr[j] + arr[j + 2], arr[j + 1]);
+        ctx.arc(arr[j], arr[j + 1], arr[j + 2], 0, Math.PI * 2);
+      }
       ctx.fill();
-    });
+    }
 
-    // brilho externo
-    const outerGlow = ctx.createRadialGradient(
-      cx,
-      cy,
-      R * 0.7,
-      cx,
-      cy,
-      R * 1.2
-    );
-
-    outerGlow.addColorStop(
-      0,
-      'rgba(57,255,20,0)'
-    );
-
-    outerGlow.addColorStop(
-      1,
-      'rgba(57,255,20,0.08)'
-    );
-
+    // Halo externo (um único gradient pré-compilado)
+    ctx.globalAlpha = 1;
     ctx.fillStyle = outerGlow;
-
     ctx.beginPath();
     ctx.arc(cx, cy, R * 1.2, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.restore();
-
-    rotation += 0.0035;
-
-    requestAnimationFrame(frame);
+    rotation += 0.007;
   }
 
-  frame();
+  requestAnimationFrame(frame);
 })();

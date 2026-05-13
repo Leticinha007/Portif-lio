@@ -1045,15 +1045,9 @@ footer .social-links li:nth-child(2) svg path:nth-child(2) {
     gap: 4rem;
   }
 
-  /* Centraliza o último card quando ele for o único na última linha */
-  #projects .cards:after {
-    content: "";
-    grid-column: span 1;
-  }
-
-  /* Se o último card for o único na linha (quando total de cards for 1, 4, 7, 10...) */
-  .card:last-child:nth-child(3n - 2) {
-    grid-column: 2 / 3;
+  /* Centraliza o último card quando estiver sozinho na linha */
+  #projects .card:nth-last-child(1):nth-child(3n - 2) {
+    grid-column: 2;
   }
 }
 
