@@ -402,7 +402,10 @@ body.menu-expanded button path { stroke: white; }
 
 #about { text-align: left; }
 
-#about .content p { margin-block: 2.4rem; }
+#about .content p {
+  margin-block: 2.4rem;
+  font-size: 1.9rem;
+}
 
 #about .content a {
   text-decoration: none;
