@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <link rel="icon" type="image/jpeg" href="./images/globo.png" />
+    <!-- ícone da aba: troca entre claro/escuro junto com o tema do site (js/script.js) -->
+    <link id="favicon" rel="icon" type="image/png" href="./images/favicon-dark.png" />
+    <link rel="apple-touch-icon" href="./images/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Portfólio de Letícia Rebeka, Desenvolvedora Full Stack" />
+    <meta name="description" content="Portfólio de Letícia Rebeka, Engenheira de Software" />
     <meta name="author" content="Letícia Rebeka" />
-    <meta property="og:description" content="Portfólio de Letícia Rebeka, Desenvolvedora Full Stack" />
+    <meta property="og:description" content="Portfólio de Letícia Rebeka, Engenheira de Software" />
     <meta property="og:image" content="./images/perfil.jpg" />
     <meta property="og:type" content="website" />
     <meta name="keywords" content="developer, programação, dev, desenvolvedora, programadora, java, spring, python, angular, javascript, typescript, docker, fullstack, frontend, backend, github" />
     <meta name="robots" content="index" />
 
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans&family=Gemunu+Libre:wght@200&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
 
@@ -30,41 +32,34 @@
   <body>
     <nav id="navigation">
       <div class="wrapper">
-        <a class="logo close" href="#home">leticiarebeka</a>
+        <a class="logo close" href="#home">leticia<span>.rebeka</span></a>
 
         <div class="menu">
           <ul>
-            <li><a id="aboutNav" class="close" href="#about">Sobre mim</a></li>
+            <li><a id="aboutNav" class="close" href="#about">Sobre</a></li>
+            <li><a id="experienceNav" class="close" href="#experience">Trajetória</a></li>
             <li><a id="projectsNav" class="close" href="#projects">Projetos</a></li>
-            <li><a id="knowledgeNav" class="close" href="#knowledge">Conhecimentos</a></li>
-            <li><a id="contactNav" class="close" href="#contact">Fale comigo</a></li>
+            <li><a id="contactNav" class="close" href="#contact">Contato</a></li>
           </ul>
+        </div>
 
-          <ul class="social-links">
-            <li>
-              <a href="https://github.com/Leticinha007" title="GitHub" target="_blank">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                  <path fill="none" d="M0 0h24v24H0z" />
-                  <path d="M12 2C6.475 2 2 6.475 2 12a9.994 9.994 0 0 0 6.838 9.488c.5.087.687-.213.687-.476 0-.237-.013-1.024-.013-1.862-2.512.463-3.162-.612-3.362-1.175-.113-.288-.6-1.175-1.025-1.413-.35-.187-.85-.65-.013-.662.788-.013 1.35.725 1.538 1.025.9 1.512 2.338 1.087 2.912.825.088-.65.35-1.087.638-1.337-2.225-.25-4.55-1.113-4.55-4.938 0-1.088.387-1.987 1.025-2.688-.1-.25-.45-1.275.1-2.65 0 0 .837-.262 2.75 1.026a9.28 9.28 0 0 1 2.5-.338c.85 0 1.7.112 2.5.337 1.912-1.3 2.75-1.024 2.75-1.024.55 1.375.2 2.4.1 2.65.637.7 1.025 1.587 1.025 2.687 0 3.838-2.337 4.688-4.562 4.938.362.312.675.912.675 1.85 0 1.337-.013 2.412-.013 2.75 0 .262.188.574.688.474A10.016 10.016 0 0 0 22 12c0-5.525-4.475-10-10-10z" fill="rgba(255,255,255,1)" />
-                </svg>
-              </a>
-            </li>
-            <li>
-              <a href="https://www.linkedin.com/in/leticiarebeka/" title="LinkedIn" target="_blank">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                  <path fill="none" d="M0 0h24v24H0z" />
-                  <path d="M6.94 5a2 2 0 1 1-4-.002 2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z" fill="rgba(255,255,255,1)" />
-                </svg>
-              </a>
-            </li>
-          </ul>
+        <div class="nav-actions">
+          <button type="button" id="theme-toggle" class="icon-btn" aria-label="Mudar tema" title="Mudar tema">
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z" />
+            </svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <path d="M11.38 2.019a7.5 7.5 0 1 0 10.6 10.6C21.662 17.854 17.316 22 12.001 22 6.477 22 2 17.523 2 12c0-5.315 4.146-9.661 9.38-9.981z" />
+            </svg>
+          </button>
+          <button type="button" id="lang-toggle" class="lang-btn" aria-label="Switch to English">EN</button>
         </div>
 
         <button aria-expanded="false" aria-label="Abrir menu" class="open-menu open">
           <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 20H30" stroke="#00856F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M10 12H30" stroke="#00856F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M18 28L30 28" stroke="#00856F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M10 20H30" stroke="#8B16DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M10 12H30" stroke="#8B16DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M18 28L30 28" stroke="#8B16DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </button>
 
@@ -81,11 +76,14 @@
       <div class="wrapper">
         <div class="col-a">
           <header>
-            <h4>Hello world! 👋🏼</h4>
+            <blockquote class="quote">
+              <p>“Não havia escolha a não ser sermos pioneiros; não havia tempo para sermos iniciantes.”</p>
+              <cite>Margaret Hamilton · Apollo, MIT</cite>
+            </blockquote>
             <h1>Eu sou Letícia Rebeka,</h1>
           </header>
           <div class="content">
-            <p class="line typing">Desenvolvedora Full Stack.</p>
+            <p class="line typing">Engenheira de Software</p>
             <a class="button" href="#contact">Fale comigo</a>
           </div>
         </div>
@@ -101,7 +99,7 @@
       <div class="wrapper">
         <div class="col-a">
           <header>
-            <h2>Sobre mim</h2>
+            <h4>Sobre</h4>
           </header>
           <div class="content">
             <p>
@@ -119,12 +117,52 @@
       </div>
     </section>
 
+    <!-- EXPERIÊNCIA -->
+    <section id="experience">
+      <div class="wrapper">
+        <header>
+          <h4>Trajetória</h4>
+        </header>
+        <ol class="timeline">
+
+          <!-- Accenture (cargo atual) -->
+          <li class="job current">
+            <span class="job-logo">
+              <img src="images/accenture.svg" alt="Accenture" />
+            </span>
+            <div class="job-head">
+              <h3>Accenture</h3>
+              <span class="period">2026 — atual</span>
+            </div>
+            <span class="role">Analyst Junior SAP · IS-U WM</span>
+            <p>Atuo no projeto de implementação do SAP na Sabesp, maior empresa de saneamento do Brasil — construindo a solução SAP Utilities que vai sustentar cadastro, medição, faturamento e arrecadação de milhões de clientes. Configuração, requisitos e testes em squads ágeis, com SAP Fiori e SAP GUI.</p>
+          </li>
+
+          <!-- Freelancer -->
+          <li class="job">
+            <span class="job-logo" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 6l-6 6 6 6M16 6l6 6-6 6" />
+              </svg>
+            </span>
+            <div class="job-head">
+              <h3>Freelancer</h3>
+              <span class="period">2025 — 2026</span>
+            </div>
+            <span class="role">Desenvolvedora de Software</span>
+            <p>Criação de sites e aplicações web para clientes, como o site do salão D'Marvy.</p>
+          </li>
+
+        </ol>
+      </div>
+    </section>
+
     <!-- PROJETOS -->
     <section id="projects">
       <div class="wrapper">
         <header>
-          <h4>O que eu construí</h4>
-          <h2>Projetos</h2>
+          <h4>Projetos</h4>
+          <h2>O que eu construí</h2>
           <p>
             Aqui estão alguns projetos desenvolvidos por mim.<br />
             Acesse o <a href="https://github.com/Leticinha007" target="_blank">meu GitHub</a> para ver mais.
@@ -274,6 +312,7 @@
           <!-- Projeto 7 -->
            <div class="card">
             <h3>Em breve...</h3>
+            <div class="loading" role="status" aria-label="Carregando"><span></span><span></span><span></span></div>
             <p>Aprendizado constante!</p>
             <p>Em breve muitos outros projetos.</p>
           </div>
@@ -290,8 +329,7 @@
     <section id="certificates">
       <div class="wrapper">
         <header>
-          <h4>Formação</h4>
-          <h2>Certificados</h2>
+          <h4>Certificações</h4>
         </header>
         <div class="cards">
 
@@ -355,97 +393,28 @@
       <div class="wrapper">
         <header>
           <h4>Minha stack</h4>
-          <h2>Conhecimentos</h2>
+          <h2>Ferramentas do dia a dia</h2>
         </header>
-        <div class="content">
-          <div class="cards">
-            
-            <!-- LINGUAGEM PRINCIPAL -->
-             <div class="card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" />
-              <h3>JavaScript</h3>
-              <p>Minha linguagem principal. Uso tanto no frontend quanto no backend com Node.js.</p>
-            </div>
-            
-            <div class="card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript" />
-              <h3>TypeScript</h3>
-              <p>Superset do JavaScript para código mais seguro e escalável em projetos maiores.</p>
-            </div>
-            
-            <!-- BACKEND COM JS -->
-             <div class="card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js" />
-              <h3>Node.js</h3>
-              <p>Runtime JavaScript para backend, usado nos meus projetos full stack.</p>
-            </div>
-            
-            <div class="card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg" alt="Express" class="icon-dark" />
-              <h3>Express</h3>
-              <p>Framework para Node.js na criação de APIs REST e servidores web.</p>
-            </div>
-            
-            <!-- PYTHON (secundário) -->
-             <div class="card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" />
-              <h3>Python</h3>
-              <p>Linguagem secundária para automações, scripts acadêmicos e certificações DIO/Santander.</p>
-            </div>
-            
-            <!-- BANCO DE DADOS -->
-             <div class="card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" />
-              <h3>PostgreSQL</h3>
-              <p>Banco de dados relacional utilizado em projetos com Node.js e Express.</p>
-            </div>
-            
-            <div class="card">
-              <span class="icon-emoji">🔗</span>
-              <h3>REST APIs</h3>
-              <p>Criação e consumo de APIs RESTful com JSON, aplicado em projetos full stack.</p>
-            </div>
-            
-            <!-- FRONTEND -->
-             <div class="card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg" alt="Angular" />
-              <h3>Angular</h3>
-              <p>Framework frontend para construção de SPAs modernas com TypeScript.</p>
-            </div>
-            
-            <div class="card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5" />
-              <h3>HTML5</h3>
-              <p>Linguagem de marcação para estruturar páginas web com semântica.</p>
-            </div>
-
-            <div class="card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS3" />
-              <h3>CSS3</h3>
-              <p>Estilização de interfaces com layouts responsivos e design moderno.</p>
-            </div>
-
-            <!-- DEPLOY E FERRAMENTAS -->
-            <div class="card">
-              <span class="icon-emoji">☁️</span>
-              <h3>Render</h3>
-              <p>Plataforma cloud para deploy de aplicações web, APIs e bancos de dados.</p>
-            </div>
-
-            <div class="card">
-              <span class="icon-emoji">📊</span>
-              <h3>Pacote Office</h3>
-              <p>Domínio de Word, Excel e PowerPoint avançado para documentação e relatórios.</p>
-            </div>
-
-            <!-- JAVA (se quiser manter, com descrição honesta) -->
-            <div class="card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java" />
-              <h3>Java</h3>
-              <p>Conhecimento básico/intermediário adquirido em bootcamps (Decola Tech 2025).</p>
-            </div>
-          
-          </div>
+        <div class="chips">
+          <span class="chip">SAP IS-U</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">TypeScript</span>
+          <span class="chip">Node.js</span>
+          <span class="chip">Express</span>
+          <span class="chip">Java</span>
+          <span class="chip">Spring Boot</span>
+          <span class="chip">Python</span>
+          <span class="chip">Pygame</span>
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">REST APIs</span>
+          <span class="chip">Angular</span>
+          <span class="chip">HTML5</span>
+          <span class="chip">CSS3</span>
+          <span class="chip">GitHub</span>
+          <span class="chip">Vercel</span>
+          <span class="chip">Render</span>
+          <span class="chip">Metodologias Ágeis</span>
+          <span class="chip">Pacote Office</span>
         </div>
       </div>
     </section>
@@ -463,8 +432,8 @@
               <li>
                 <a href="mailto:leticiarebekaf1@gmail.com" title="Enviar e-mail">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="#00856F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M22 6L12 13L2 6" stroke="#00856F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="#8B16DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M22 6L12 13L2 6" stroke="#8B16DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                   </svg>
                   leticiarebekaf1@gmail.com
                 </a>
@@ -472,7 +441,7 @@
               <li>
                 <a href="tel:+5581986448033" title="Fazer ligação">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.42a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" stroke="#00856F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.42a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" stroke="#8B16DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                   </svg>
                   +55 (81) 98644-8033
                 </a>
@@ -508,7 +477,7 @@
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <circle cx="20" cy="20" r="20" fill="#00856F" />
+        <circle cx="20" cy="20" r="20" fill="#8B16DF" />
         <path
           d="M20 27V13"
           stroke="white"
@@ -530,7 +499,7 @@
     <footer>
       <div class="wrapper">
         <div class="col-a">
-          <a class="logo" href="#home">leticiarebeka</a>
+          <a class="logo" href="#home">leticia<span>.rebeka</span></a>
           <p>
             &copy;2026 por Letícia Rebeka.<br />
             Todos os direitos reservados.
@@ -560,19 +529,5 @@
       </div>
     </footer>
 
-    <!-- TOGGLE TEMA -->
-    <div id="toggle">
-      <input type="checkbox" id="sw-checkbox" />
-      <label for="sw-checkbox" title="Mudar tema">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-          <path fill="none" d="M0 0h24v24H0z" />
-          <path d="M11.38 2.019a7.5 7.5 0 1 0 10.6 10.6C21.662 17.854 17.316 22 12.001 22 6.477 22 2 17.523 2 12c0-5.315 4.146-9.661 9.38-9.981z" />
-        </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-          <path fill="none" d="M0 0h24v24H0z" />
-          <path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z" fill="rgba(255,255,255,1)" />
-        </svg>
-      </label>
-    </div>
   </body>
 </html>

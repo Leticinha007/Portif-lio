@@ -4,13 +4,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "DM Sans", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, "Segoe UI", Roboto, sans-serif;
 }
 
 :root {
-  --hue: 90;
-  --primary-color: hsl(var(--hue), 92%, 43%);
-  --primary-hover: hsl(var(--hue), 92%, 33%);
+  --hue: 275;
+  --primary-color: hsl(var(--hue), 82%, 48%);
+  --primary-hover: hsl(var(--hue), 82%, 38%);
   --secundary-color: hsl(0, 0%, 5%);
   --third-color: hsla(0, 0%, 100%, 0.1);
   --bg-color: hsl(0, 0%, 8%);
@@ -20,7 +20,7 @@
   --paragraph-2: hsl(calc(var(--hue) + 10), 14%, 97%);
 
   font-size: 62.5%;
-  --nav-height: 7.2rem;
+  --nav-height: 6rem;
 }
 
 html { scroll-behavior: smooth; }
@@ -31,6 +31,8 @@ body {
   text-align: center;
   overflow: overlay;
   background-color: var(--bg-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body.light-mode {
@@ -62,41 +64,48 @@ section {
 }
 
 section h4 {
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.2rem;
+  font-weight: 500;
   line-height: 150%;
-  letter-spacing: 0.08rem;
+  letter-spacing: 0.16em;
   color: var(--primary-color);
   text-transform: uppercase;
   margin-bottom: 1.6rem;
 }
 
 section header h2 {
-  font-size: 3rem;
-  line-height: 3.9rem;
+  font-size: 3.2rem;
+  font-weight: 600;
+  letter-spacing: -0.021em;
+  line-height: 1.1;
   color: var(--primary-color);
 }
 
-section h3 { color: var(--headline); }
+section h3 {
+  color: var(--headline);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
 
 section p,
 section span {
   font-weight: 400;
   font-size: 1.7rem;
-  line-height: 130%;
+  line-height: 1.65;
   color: var(--paragraph);
 }
 
 .button {
   background: none;
   border: 0.2rem solid var(--primary-color);
+  border-radius: 999px;
   margin-bottom: 6rem;
   padding: 1.4rem 3rem;
   width: fit-content;
   color: var(--primary-color);
-  font-size: 1.4rem;
-  font-weight: 700;
-  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 600;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -162,11 +171,11 @@ body nav#navigation .social-links li:nth-child(2) svg:hover path:nth-child(2) {
 #backToTopButton circle { fill: var(--primary-color); }
 
 #contact li path,
-#navigation button.open-menu path[stroke*="#00856F"] {
+#navigation button.open-menu path[stroke*="#8B16DF"] {
   stroke: var(--primary-color);
 }
 
-#navigation.scroll button.open-menu path[stroke*="#00856F"] {
+#navigation.scroll button.open-menu path[stroke*="#8B16DF"] {
   stroke: var(--paragraph-2);
 }
 
@@ -188,43 +197,31 @@ nav .wrapper {
 }
 
 nav.scroll {
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(1rem);
-  -webkit-backdrop-filter: blur(1rem);
+  background: rgba(20, 20, 20, 0.72);
+  border-bottom: 1px solid var(--third-color);
+  backdrop-filter: saturate(180%) blur(2rem);
+  -webkit-backdrop-filter: saturate(180%) blur(2rem);
 }
 
 body.light-mode nav.scroll {
-  background: rgba(151, 151, 151, 0.5);
+  background: rgba(241, 241, 241, 0.78);
 }
 
 a.logo {
-  font-family: "Gemunu Libre", sans-serif;
-  font-size: 3rem;
-  opacity: 0.7;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--headline);
+  white-space: nowrap;
 }
 
-nav#navigation a.logo { color: var(--primary-color); }
-
-body.light-mode nav#navigation a.logo,
-body.light-mode footer a.logo {
-  font-weight: bold;
+a.logo span {
+  font: inherit;
+  color: var(--primary-color);
 }
 
-footer a.logo,
-nav#navigation.scroll a.logo,
-body.menu-expanded nav#navigation a.logo,
-body.light-mode.menu-expanded nav#navigation.scroll a.logo {
-  color: #fff;
-}
-
-body.menu-expanded nav#navigation a.logo { opacity: 1; }
-
-body.light-mode nav#navigation a.logo { filter: brightness(0.8); }
-
-body.light-mode footer a.logo,
-body.light-mode nav#navigation.scroll a.logo {
-  color: #000;
-}
+body.menu-expanded nav#navigation a.logo { color: #fff; }
 
 nav#navigation .menu ul li a { color: #fff; }
 
@@ -238,6 +235,53 @@ nav .menu,
 nav .close-menu {
   position: fixed;
 }
+
+/* botões de tema e idioma */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-left: auto;
+  margin-right: 1.6rem;
+}
+
+nav#navigation .nav-actions .icon-btn,
+nav#navigation .nav-actions .lang-btn {
+  display: grid;
+  place-items: center;
+  height: 3.4rem;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid var(--third-color);
+  color: var(--headline);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+nav#navigation .nav-actions .icon-btn { width: 3.4rem; padding: 0; }
+
+nav#navigation .nav-actions .lang-btn {
+  padding: 0 1.4rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+nav#navigation .nav-actions button:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+nav#navigation .nav-actions svg { display: block; color: inherit; fill: currentColor; }
+nav#navigation .nav-actions svg path { color: inherit; fill: currentColor; stroke: none; }
+
+/* mostra o ícone do tema para o qual vai mudar */
+nav#navigation .nav-actions .icon-moon { display: none; }
+body.light-mode nav#navigation .nav-actions .icon-moon { display: block; }
+body.light-mode nav#navigation .nav-actions .icon-sun { display: none; }
+
+body.menu-expanded nav#navigation .nav-actions button { color: #fff; }
 
 /*===== MENU-EXPANDED ===============================================*/
 
@@ -318,20 +362,57 @@ body.menu-expanded button path { stroke: white; }
 
 #home h1 {
   font-size: 4.5rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
   color: var(--headline);
-  line-height: 110%;
-  margin-bottom: 1rem;
+  line-height: 1.07;
+  margin-bottom: 2rem;
 }
 
+/* mesmo estilo do "Software Engineer · Backend" da referência */
 #home p {
   display: inline-flex;
-  font-size: 1.8rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.4rem;
   line-height: 150%;
-  font-weight: bold;
-  margin-bottom: 3.2rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary-color);
+  margin-bottom: 3.6rem;
+}
+
+/* citação de Margaret Hamilton, acima do nome */
+#home .quote {
+  max-width: 46rem;
+  margin-bottom: 2.8rem;
+  padding-left: 1.6rem;
+  border-left: 0.2rem solid var(--primary-color);
+  text-align: left;
+}
+
+#home .quote p {
+  display: block;
+  font-family: inherit;
+  font-size: 1.7rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--paragraph);
+  margin-bottom: 0.8rem;
+}
+
+#home .quote cite {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.2rem;
+  font-style: normal;
+  color: var(--paragraph);
+  opacity: 0.75;
 }
 
 #home .line {
+  display: inline-block;
   border-right: 0.2rem solid var(--primary-color);
   white-space: nowrap;
   overflow: hidden;
@@ -344,7 +425,7 @@ body.menu-expanded button path { stroke: white; }
 
 @keyframes typing {
   from { width: 0; }
-  to { width: 27.5rem; }
+  to { width: var(--typing-w, 27.5rem); }
 }
 
 @keyframes line-typing {
@@ -421,6 +502,109 @@ body.menu-expanded button path { stroke: white; }
   border-radius: 2rem;
   box-shadow: 0 0 2rem black;
   transition: 600ms;
+}
+
+/*===== EXPERIENCE ===============================================*/
+
+#experience { text-align: left; }
+
+#experience header { text-align: center; }
+
+#experience header h4 { margin-bottom: 4rem; }
+
+/* linha do tempo centralizada na página, conteúdo alinhado à esquerda */
+#experience .timeline {
+  list-style: none;
+  width: 100%;
+  max-width: 64rem;
+  margin-inline: auto;
+  padding-left: 2.6rem;
+}
+
+#experience .job {
+  position: relative;
+  padding: 0 0 4.4rem 5.4rem;
+  border-left: 1px solid var(--third-color);
+}
+
+#experience .job:last-child { padding-bottom: 0; }
+
+#experience .job-logo {
+  position: absolute;
+  left: -2.6rem;
+  top: -0.4rem;
+  width: 5.2rem;
+  height: 5.2rem;
+  display: grid;
+  place-items: center;
+  border-radius: 1.4rem;
+  background: var(--secundary-color);
+  border: 1px solid var(--third-color);
+  color: var(--paragraph);
+  overflow: hidden;
+}
+
+#experience .job.current .job-logo { border-color: var(--primary-color); }
+
+#experience .job-logo img { width: 2.6rem; height: 2.6rem; }
+
+#experience .job-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+#experience .job h3 {
+  font-size: 2rem;
+  letter-spacing: -0.01em;
+}
+
+#experience .badge,
+#experience .period {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+#experience .badge {
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--primary-color);
+  border-radius: 999px;
+  padding: 0.2rem 1rem;
+}
+
+#experience .role {
+  display: block;
+  margin: 0.6rem 0 1.2rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.3rem;
+  color: var(--paragraph);
+}
+
+#experience .job p {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  max-width: 60ch;
+}
+
+#experience .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+
+#experience .tags span {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.2rem;
+  color: var(--paragraph);
+  border: 1px solid var(--third-color);
+  border-radius: 999px;
+  padding: 0.4rem 1.2rem;
 }
 
 /*===== PROJECTS ===============================================*/
@@ -547,7 +731,7 @@ body.menu-expanded button path { stroke: white; }
 
 /*===== CERTIFICATES ===============================================*/
 
-#certificates header h2 { margin-bottom: 4rem; }
+#certificates header h4 { margin-bottom: 3.4rem; }
 
 #certificates .cards {
   display: flex;
@@ -617,39 +801,31 @@ body.menu-expanded button path { stroke: white; }
 
 /*===== KNOWLEDGE ===============================================*/
 
-#knowledge header h2 { margin-bottom: 6rem; }
+#knowledge header h2 { margin-bottom: 4rem; }
 
-#knowledge .cards {
+#knowledge .chips {
   display: flex;
-  flex-direction: column;
-  gap: 3.2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 72rem;
+  margin-inline: auto;
 }
 
-#knowledge .card {
-  padding: 2.8rem;
-  text-align: left;
+#knowledge .chip {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.3rem;
+  color: var(--paragraph);
   background: var(--secundary-color);
-  border-radius: 0.6rem;
-  box-shadow: -1rem 1rem 1rem rgba(0, 0, 0, 0.267);
-  transition: 400ms;
+  border: 1px solid var(--third-color);
+  border-radius: 999px;
+  padding: 0.7rem 1.6rem;
+  transition: color 200ms, border-color 200ms;
 }
 
-#knowledge .card:hover { background: var(--third-color); }
-
-#knowledge .card h3 { margin-block: 1.6rem; }
-
-#knowledge .card img { width: 10rem; }
-
-#knowledge .card .icon-emoji {
-  font-size: 8rem;
-  display: block;
-  line-height: 1;
-  width: 10rem;
-  text-align: center;
-}
-
-body:not(.light-mode) #knowledge .card img.icon-dark {
-  filter: invert(1);
+#knowledge .chip:hover {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 /*===== CONTACT ===============================================*/
@@ -736,7 +912,6 @@ footer .wrapper {
 footer .logo {
   display: inline-block;
   margin-bottom: 2.4rem;
-  opacity: 0.6;
 }
 
 footer p {
@@ -750,49 +925,6 @@ footer .social-links li:nth-child(1) svg path:nth-child(2),
 footer .social-links li:nth-child(2) svg path:nth-child(2) {
   fill: var(--paragraph-2);
 }
-
-/*===== TOGGLE TEMA ===============================================*/
-
-#toggle {
-  display: flex;
-  position: fixed;
-  bottom: 2rem;
-  left: 2.5rem;
-}
-
-#toggle input {
-  position: absolute;
-  visibility: hidden;
-}
-
-#toggle label {
-  width: 8rem;
-  height: 4rem;
-  background-color: var(--secundary-color);
-  border: 0.1rem solid var(--primary-color);
-  border-radius: 5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-#toggle label:hover { cursor: pointer; }
-
-#toggle label::before {
-  content: "";
-  display: block;
-  width: 3rem;
-  height: 3rem;
-  background-color: var(--primary-color);
-  border-radius: 50%;
-  position: absolute;
-  bottom: 0.5rem;
-  left: 0.6rem;
-  transform: translateX(0);
-  transition: 500ms;
-}
-
-#toggle input:checked + label::before { transform: translateX(3.8rem); }
 
 /*===== BACK TO TOP ===============================================*/
 
@@ -851,8 +983,17 @@ footer .social-links li:nth-child(2) svg path:nth-child(2) {
 
   nav#navigation a.logo,
   footer a.logo {
-    font-size: 4rem;
-    opacity: 0.7;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--headline);
+  }
+
+  nav#navigation a.logo span,
+  footer a.logo span {
+    font: inherit;
+    color: var(--primary-color);
   }
 
   nav#navigation .close-menu,
@@ -863,73 +1004,31 @@ footer .social-links li:nth-child(2) svg path:nth-child(2) {
   nav#navigation .menu {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 60%;
+    margin-left: auto;
+  }
+
+  nav#navigation .nav-actions {
+    display: flex;
+    margin: 0 0 0 2.6rem;
+    gap: 0.8rem;
   }
 
   nav#navigation .menu ul:nth-child(1) {
     display: flex;
-    gap: 1rem;
+    gap: 2.6rem;
   }
 
   nav#navigation .menu ul li a {
-    color: var(--primary-color);
-    opacity: 0.7;
-    transition: opacity 0.4s;
-  }
-
-  body.light-mode nav#navigation .menu ul li a { opacity: 1; }
-
-  nav#navigation.scroll .menu ul li a {
-    color: var(--paragraph-2);
-    opacity: 0.6;
-  }
-
-  nav#navigation .menu ul:nth-child(1) li {
-    width: 8.4rem;
+    font-size: 1.3rem;
+    letter-spacing: -0.01em;
     color: var(--paragraph);
+    white-space: nowrap;
+    transition: color 0.2s;
   }
-
-  nav#navigation .menu ul:nth-child(1) li:nth-child(3),
-  nav#navigation .menu ul:nth-child(1) li:nth-child(4) { width: 14rem; }
 
   nav#navigation .menu ul li a.active,
   nav#navigation .menu ul li a:hover {
-    opacity: 1;
-    font-weight: 700;
-  }
-
-  nav#navigation.scroll .menu ul li a.active,
-  nav#navigation.scroll .menu ul li a:hover {
-    opacity: 1;
-  }
-
-  nav#navigation .menu ul:nth-child(1) li a::after {
-    content: "";
-    width: 0%;
-    height: 2px;
-    background-color: var(--primary-color);
-    display: block;
-    position: relative;
-    bottom: -2rem;
-    left: -0.5rem;
-    transition: width 0.2s;
-  }
-
-  nav#navigation.scroll .menu ul li a::after {
-    background-color: var(--paragraph-2);
-  }
-
-  nav#navigation .menu ul li a:hover::after,
-  nav#navigation .menu ul li a.active::after {
-    padding-inline: 0.8rem;
-    width: 100%;
-  }
-
-  nav#navigation .social-links {
-    display: flex;
-    flex-direction: row;
-    gap: 1.5rem;
+    color: var(--headline);
   }
 
   /* HOME DESKTOP */
@@ -947,9 +1046,9 @@ footer .social-links li:nth-child(2) svg path:nth-child(2) {
     align-self: center;
   }
 
-  #home h1 { font-size: 6rem; }
+  #home h1 { font-size: 5.6rem; }
 
-  #home .content p { font-size: 2.5rem; }
+  #home .content p { font-size: 1.5rem; }
 
   #home .button { margin: 0; }
 
@@ -992,17 +1091,6 @@ footer .social-links li:nth-child(2) svg path:nth-child(2) {
     gap: 3.2rem;
   }
 
-  /* KNOWLEDGE DESKTOP */
-  #knowledge .cards {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 4rem;
-  }
-
-  #knowledge .card {
-    width: 30%;
-    flex-grow: 1;
-  }
 
   /* CONTACT DESKTOP */
   #contact .wrapper {
@@ -1039,6 +1127,34 @@ footer .social-links li:nth-child(2) svg path:nth-child(2) {
 @media (max-width: 320px) {
   #home h1 { font-size: 2.8rem; }
 }
+/* "loading" do card Em breve */
+#projects .loading {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 1.6rem 0 2.4rem;
+}
+
+#projects .loading span {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--primary-color);
+  animation: loading-dot 1.2s ease-in-out infinite;
+}
+
+#projects .loading span:nth-child(2) { animation-delay: 0.15s; }
+#projects .loading span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes loading-dot {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.35; }
+  40% { transform: translateY(-0.8rem); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #projects .loading span { animation-duration: 2.4s; transform: none; }
+}
+
 /*===== CENTRALIZAR ÚLTIMO CARD QUANDO SOZINHO ===============================================*/
 
 /* Versão desktop (1024px+) */
